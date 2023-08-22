@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: custom-app-deployment
+  labels:
+    app: custom-app
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: custom-app-dep
+  template:
+    metadata:
+      labels:
+        app: custom-app-dep
+    spec:
+      containers:
+      - name: python-app
+        image: 663839140840.dkr.ecr.ap-south-1.amazonaws.com/python-web-app:v6
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+        - name: ecr-secret
+
